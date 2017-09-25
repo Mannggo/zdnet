@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdnet.mapper.MusicMapper" >
+  <resultMap id="BaseResultMap" type="com.zdnet.domain.Music" >
+    <id column="mid" property="mid" jdbcType="INTEGER" />
+    <result column="mname" property="mname" jdbcType="VARCHAR" />
+    <result column="mrunDate" property="mrundate" jdbcType="DATE" />
+    <result column="msinger" property="msinger" jdbcType="VARCHAR" />
+    <result column="mauthor" property="mauthor" jdbcType="VARCHAR" />
+    <result column="menteredDate" property="mentereddate" jdbcType="DATE" />
+    <result column="mpicaddr" property="mpicaddr" jdbcType="VARCHAR" />
+    <result column="miscream" property="miscream" jdbcType="INTEGER" />
+    <result column="mfileaddr" property="mfileaddr" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    music.mid, mname, mrunDate, msinger, mauthor, menteredDate, mpicaddr, miscream, mfileaddr
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from music
+    where mid = #{mid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from music
+    where mid = #{mid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdnet.domain.Music" >
+    insert into music (mid, mname, mrunDate, 
+      msinger, mauthor, menteredDate, 
+      mpicaddr, miscream, mfileaddr
+      )
+    values (#{mid,jdbcType=INTEGER}, #{mname,jdbcType=VARCHAR}, #{mrundate,jdbcType=DATE}, 
+      #{msinger,jdbcType=VARCHAR}, #{mauthor,jdbcType=VARCHAR}, #{mentereddate,jdbcType=DATE}, 
+      #{mpicaddr,jdbcType=VARCHAR}, #{miscream,jdbcType=INTEGER}, #{mfileaddr,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertFirstComment" parameterType="com.zdnet.domain.Music" >
+    insert into musiccomment (mccontent, mcenteredDate, 
+      mcstar, mid, uid)
+    values ('还没有评论', #{mentereddate,jdbcType=DATE}, 
+      0, (select max(mid) from music), 1)
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdnet.domain.Music" >
+    insert into music
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        mid,
+      </if>
+      <if test="mname != null" >
+        mname,
+      </if>
+      <if test="mrundate != null" >
+        mrunDate,
+      </if>
+      <if test="msinger != null" >
+        msinger,
+      </if>
+      <if test="mauthor != null" >
+        mauthor,
+      </if>
+      <if test="mentereddate != null" >
+        menteredDate,
+      </if>
+      <if test="mpicaddr != null" >
+        mpicaddr,
+      </if>
+      <if test="miscream != null" >
+        miscream,
+      </if>
+      <if test="mfileaddr != null" >
+        mfileaddr,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mid != null" >
+        #{mid,jdbcType=INTEGER},
+      </if>
+      <if test="mname != null" >
+        #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mrundate != null" >
+        #{mrundate,jdbcType=DATE},
+      </if>
+      <if test="msinger != null" >
+        #{msinger,jdbcType=VARCHAR},
+      </if>
+      <if test="mauthor != null" >
+        #{mauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="mentereddate != null" >
+        #{mentereddate,jdbcType=DATE},
+      </if>
+      <if test="mpicaddr != null" >
+        #{mpicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="miscream != null" >
+        #{miscream,jdbcType=INTEGER},
+      </if>
+      <if test="mfileaddr != null" >
+        #{mfileaddr,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdnet.domain.Music" >
+    update music
+    <set >
+      <if test="mname != null" >
+        mname = #{mname,jdbcType=VARCHAR},
+      </if>
+      <if test="mrundate != null" >
+        mrunDate = #{mrundate,jdbcType=DATE},
+      </if>
+      <if test="msinger != null" >
+        msinger = #{msinger,jdbcType=VARCHAR},
+      </if>
+      <if test="mauthor != null" >
+        mauthor = #{mauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="mentereddate != null" >
+        menteredDate = #{mentereddate,jdbcType=DATE},
+      </if>
+      <if test="mpicaddr != null" >
+        mpicaddr = #{mpicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="miscream != null" >
+        miscream = #{miscream,jdbcType=INTEGER},
+      </if>
+      <if test="mfileaddr != null" >
+        mfileaddr = #{mfileaddr,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdnet.domain.Music" >
+    update music
+    set mname = #{mname,jdbcType=VARCHAR},
+      mrunDate = #{mrundate,jdbcType=DATE},
+      msinger = #{msinger,jdbcType=VARCHAR},
+      mauthor = #{mauthor,jdbcType=VARCHAR},
+      menteredDate = #{mentereddate,jdbcType=DATE},
+      mpicaddr = #{mpicaddr,jdbcType=VARCHAR},
+      miscream = #{miscream,jdbcType=INTEGER},
+      mfileaddr = #{mfileaddr,jdbcType=VARCHAR}
+    where mid = #{mid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllMusics" resultMap="BaseResultMap" parameterType="map">
+  	select  * from music 
+  	where 1=1
+  	<if test="iscream != null and iscream != ''" >
+        and miscream = #{iscream,jdbcType=INTEGER}
+     </if>
+  	limit #{begin,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
+  </select>
+  <select id="selectAllMusicsAndStar" resultType="map" parameterType="map">
+  	select music.mid,mname,mauthor,mrunDate,mfileaddr,msinger,mpicaddr,avg(mcstar) as avgstar,count(*) totalcomment from music,musiccomment
+  		where music.mid = musiccomment.mid group by musiccomment.mid 
+  			ORDER BY menteredDate DESC 
+  				limit #{begin,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
+  </select>
+  <select id="selectCount" resultType="int">
+  	select count(*) from music
+  </select>
+  
+  <select id="selectMusic" resultType="map" parameterType="map">
+  	select <include refid="Base_Column_List" />,avg(mcstar) as avgstar,count(*) as count from music,musiccomment
+  	where music.mid = musiccomment.mid
+  	<if test="mid != null and mid != ''">
+  		and music.mid = #{mid,jdbcType=INTEGER}
+  	</if>
+  	<if test="mname != null and mname != ''">
+  		and mname = #{mname,jdbcType=VARCHAR}
+  	</if>
+  	<if test="mauthor != null and mauthor != ''">
+  		and mauthor = #{mauthor,jdbcType=VARCHAR}
+  	</if>
+  	<if test="msinger != null and msinger != ''">
+  		and msinger like #{msinger,jdbcType=VARCHAR}
+  	</if>
+  	<if test="miscream != null and miscream != ''" >
+        and miscream = #{miscream,jdbcType=INTEGER}
+      </if>
+      <if test="condition != null and condition != ''" >
+        and (mname like #{condition} or mauthor like #{condition} or msinger like #{condition})
+      </if>
+      group by musiccomment.mid
+  </select>
+  
+  <select id="selectMusicCollection" resultType="map" parameterType="map">
+		select * from musiccollection where uid=#{uid} and mid=#{mid};
+	</select>
+</mapper>

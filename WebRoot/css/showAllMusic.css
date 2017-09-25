@@ -1,0 +1,120 @@
+		.music-intro{
+			font-size: 14px;
+			color: #000000;
+			font-weight: normal;
+			display: inline-block;
+			float: left;
+			position: absolute;
+			padding: 28px 30px 0 280px;
+			font-family: "微软雅黑";
+			opacity: 0.8;
+		}
+		.music-num{
+			font-size: 16px;
+			font-family: arial;
+		}
+		.music-content{
+			width: 75%;
+			height:1100px;
+			margin:0 12.5%;
+			background-color: white;
+			position: absolute;
+			border-left: 1px solid lightgray;
+			border-right: 1px solid lightgray;
+			border-bottom: 1px solid lightgray;
+			
+		}
+		.new-music-good{
+			width: 200px;
+			height: 600px;
+			position: absolute;
+			background-color: white;
+			right: 210px;
+			margin-top: 20px;
+		}
+		.new-music-good ul li{
+			list-style-type: none;
+		}
+		.new-music-good ul{
+			margin-top: 20px;
+		}
+		.new-music-good p{
+			font-size: 16px;
+			color: #009797;
+			font-family: "微软雅黑";
+		}
+		.more-musicname{
+			color: #27a;
+			text-decoration: none;
+			font-size: 14px;
+			font-family: "微软雅黑";
+		}
+		.more-musicname:hover{
+			color: white;
+			background-color: #27a;
+		}
+		hr{
+			color: #F7F7F7;
+			opacity: 0.2;
+			width: 75%;
+			margin: 5px 5%;
+		}
+		.page{
+			width: 60%;
+			height: 40px;
+			position: absolute;
+			font-size:10pt;
+			margin: 0 15% 0 3%;
+			bottom: 30px;
+		}
+		.table-pic{
+			width: 120px;
+			height: 180px;
+			text-align: center;
+		}
+		.table-pic img{
+			width: 120px;
+			height: 180px;
+		}
+		.table-normal{
+			width: 500px;
+			height: 20px;
+			padding-left: 20px;
+			/*margin-top: 10px;*/
+			/*border-top: 0.5px solid rgba(122,122,122,0.6);*/
+			font-size: 14px;
+			font-family: "微软雅黑";
+		}
+		.table-intro{
+			width: 500px;
+			/*height: ;*/
+			height: 80px;
+			padding-left: 20px;
+			/*border-top: 0.5px solid rgba(122,122,122,0.6);*/
+			font-size: 14px;
+			font-family: "微软雅黑";
+		}
+		.table-intro p{
+			width: 480px;
+			height: 80px;
+			padding-right: 20px;
+			background: white;
+			overflow: hidden;
+			table-layout:fixed;
+			white-space: normal;
+			word-break:break-all;
+		}
+		.table-music{
+			height: 180px;
+			margin-top: 10px;
+			margin-left: 20px;
+		}
+		.music-name{
+			text-decoration: none;
+			color: #2277AA;
+			font-weight: bold;
+		}
+		.music-name:hover{
+			background-color: #2277AA;
+			color: white;
+		}

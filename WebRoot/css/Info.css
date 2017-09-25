@@ -1,0 +1,156 @@
+		*{
+			margin: 0;
+			padding: 0;
+		}
+		#main{
+			width: 1287px;
+			height: 100%;
+		}
+		.title h1{
+			margin: 30px 0px 0px 150px;
+		}
+		.title span{
+			color: #494949;
+			font-size: 22px;
+			font-weight: bold;
+			word-wrap: break-word;
+			font-family:"微软雅黑";
+		}
+		.table-left{
+			display: inline-block;
+		}
+		.table-right{
+			display: inline-block;
+			height: 100px;
+			border-left: 1px solid lightgray;
+			padding: 0 0 0 15px;
+			position: absolute;
+			top: 50px;
+		}
+		.basic{
+			margin:10px 0 0 150px;
+		}
+		.pic{
+			width: 120px;
+			height: 180px;
+		}
+		.pic img{
+			width: 120px;
+			height: 180px;
+		}
+		.basic-info{
+			width: 300px;
+			height: 20px;
+			font-size: 14px;
+			font-family: "微软雅黑";
+			padding-left:20px ;
+		}
+		.basic-info a{
+			display: inline-block;
+			text-align: center;
+			width: 80px;
+			height: 25px;
+			font-size: 14px;
+			font-family: "微软雅黑";
+			background-color:#2277AA;
+			border: none;
+			cursor: pointer;
+			color: white;
+			border-radius: 5px;
+			text-decoration: none;
+			padding-top: 2px;
+		}
+		.basic-info a:hover{
+			background-color: #3398d7;
+		}
+		.table-right{
+			font-size: 14px;
+			font-family: "微软雅黑";
+			color: #000000;
+		}
+		.score-num{
+			font-size: 14px;
+			color: #000000;
+		}
+		.score-display{
+			font-size: 26px;
+			text-align: center;
+			padding: 0 10px;
+		}
+		#intro{
+			margin:10px 0 10px 150px ;
+			width: 650px;
+			font-size: 14px;
+			font-family: "微软雅黑";
+			
+		}
+		.people{
+			font-size: 14px;
+			font-family: "微软雅黑";
+			color: #000000;
+		}
+		#comment-area{
+			/*position: absolute;*/
+			margin:40px 0 50px  150px;
+			width: 650px;
+			/*height: 100%;*/
+			background-color: white;
+			padding-bottom: 10px;
+			border-bottom: 1px solid #ddd;
+		}
+		.comment{
+			/*border: 1px solid red;*/
+			margin-top: 10px;
+			font-size: 14px;
+			color: #000000;
+			background-color: white;
+			word-wrap: break-word;
+			border-top: 1px solid #ddd;
+			padding:15px 0 10px 20px;
+		}
+		#addcomment{
+			width: 650px;
+			height: 150px;
+			background-color: white;
+			/*position: absolute;*/
+			/*bottom: 0px;*/
+			margin: 20px 0 100px 150px;
+			/*border-top: 1px solid #ddd;*/
+			padding-top: 20px;
+		}
+		#addcomment textarea{
+			font-size: 14px;
+			color: #000000;
+			border-radius: 5px;
+			border:1px solid darkgray;
+			/*float: right;*/
+		}
+		#addcomment textarea:focus{
+			box-shadow: 0 0 2px darkgray;
+		}
+		.bid{
+			display: none;
+		}
+		.submit{
+			border: none;
+			background-color: #2277AA;
+			color: white;
+			cursor: pointer;
+			display: inline-block;
+			width: 60px;
+			height: 20px;
+			font-size: 12px;
+			text-align: center;
+			border-radius: 3px;
+			/*float: right;*/
+		}
+		.submit:hover{
+			background-color: #3398d7;
+		}
+		.addscore span{
+			font-size: 14px;
+			font-family: "微软雅黑";
+		}
+		.addscore{
+			/*float: right;*/
+		}

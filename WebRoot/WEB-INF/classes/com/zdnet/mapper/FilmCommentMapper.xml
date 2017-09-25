@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdnet.mapper.FilmCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.zdnet.domain.FilmComment" >
+    <id column="fcid" property="fcid" jdbcType="INTEGER" />
+    <result column="fccontent" property="fccontent" jdbcType="VARCHAR" />
+    <result column="fcstar" property="fcstar" jdbcType="INTEGER" />
+    <result column="fcenteredDate" property="fcentereddate" jdbcType="TIMESTAMP" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="fid" property="fid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    fcid, fccontent, fcstar, fcenteredDate, uid, fid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from filmcomment
+    where fcid = #{fcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from filmcomment
+    where fcid = #{fcid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdnet.domain.FilmComment" >
+    insert into filmcomment (fcid, fccontent, fcstar, 
+      fcenteredDate, uid, fid
+      )
+    values (#{fcid,jdbcType=INTEGER}, #{fccontent,jdbcType=VARCHAR}, #{fcstar,jdbcType=INTEGER}, 
+      #{fcentereddate,jdbcType=TIMESTAMP}, #{uid,jdbcType=INTEGER}, #{fid,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdnet.domain.FilmComment" >
+    insert into filmcomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fcid != null" >
+        fcid,
+      </if>
+      <if test="fccontent != null" >
+        fccontent,
+      </if>
+      <if test="fcstar != null" >
+        fcstar,
+      </if>
+      <if test="fcentereddate != null" >
+        fcenteredDate,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="fid != null" >
+        fid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fcid != null" >
+        #{fcid,jdbcType=INTEGER},
+      </if>
+      <if test="fccontent != null" >
+        #{fccontent,jdbcType=VARCHAR},
+      </if>
+      <if test="fcstar != null" >
+        #{fcstar,jdbcType=INTEGER},
+      </if>
+      <if test="fcentereddate != null" >
+        #{fcentereddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdnet.domain.FilmComment" >
+    update filmcomment
+    <set >
+      <if test="fccontent != null" >
+        fccontent = #{fccontent,jdbcType=VARCHAR},
+      </if>
+      <if test="fcstar != null" >
+        fcstar = #{fcstar,jdbcType=INTEGER},
+      </if>
+      <if test="fcentereddate != null" >
+        fcenteredDate = #{fcentereddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="fid != null" >
+        fid = #{fid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fcid = #{fcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdnet.domain.FilmComment" >
+    update filmcomment
+    set fccontent = #{fccontent,jdbcType=VARCHAR},
+      fcstar = #{fcstar,jdbcType=INTEGER},
+      fcenteredDate = #{fcentereddate,jdbcType=TIMESTAMP},
+      uid = #{uid,jdbcType=INTEGER},
+      fid = #{fid,jdbcType=INTEGER}
+    where fcid = #{fcid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllComments" parameterType="int" resultType="map">
+  	select *,unickname,upicaddr from filmcomment,user
+  	where fid = #{fid,jdbcType=INTEGER} 
+  	and user.uid = filmcomment.uid order by fcentereddate desc
+  </select>
+</mapper>

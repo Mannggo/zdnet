@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zdnet.mapper.ActivityMapper">
+  <resultMap id="BaseResultMap" type="com.zdnet.domain.Activity">
+    <id column="aid" jdbcType="INTEGER" property="aid" />
+    <result column="aname" jdbcType="VARCHAR" property="aname" />
+    <result column="aholdDate" jdbcType="DATE" property="aholddate" />
+    <result column="aholdPlace" jdbcType="VARCHAR" property="aholdplace" />
+    <result column="apersonlimit" jdbcType="INTEGER" property="apersonlimit" />
+    <result column="aispass" jdbcType="INTEGER" property="aispass" />
+    <result column="aintroduction" jdbcType="VARCHAR" property="aintroduction" />
+    <result column="aunit" jdbcType="VARCHAR" property="aunit" />
+    <result column="uid" jdbcType="INTEGER" property="uid" />
+    <result column="adeadline" jdbcType="DATE" property="adeadline" />
+    <result column="aenteredDate" jdbcType="DATE" property="aentereddate" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    aid, aname, aholdDate, aholdPlace, apersonlimit, aispass, aintroduction, aunit, activity.uid, 
+    adeadline, aenteredDate
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from activity
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from activity
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdnet.domain.Activity">
+    insert into activity (aid, aname, aholdDate, 
+      aholdPlace, apersonlimit, aispass, 
+      aintroduction, aunit, uid, 
+      adeadline, aenteredDate)
+    values (#{aid,jdbcType=INTEGER}, #{aname,jdbcType=VARCHAR}, #{aholddate,jdbcType=DATE}, 
+      #{aholdplace,jdbcType=VARCHAR}, #{apersonlimit,jdbcType=INTEGER}, #{aispass,jdbcType=INTEGER}, 
+      #{aintroduction,jdbcType=VARCHAR}, #{aunit,jdbcType=VARCHAR}, #{uid,jdbcType=INTEGER}, 
+      #{adeadline,jdbcType=DATE}, #{aentereddate,jdbcType=DATE})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdnet.domain.Activity">
+    insert into activity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        aid,
+      </if>
+      <if test="aname != null">
+        aname,
+      </if>
+      <if test="aholddate != null">
+        aholdDate,
+      </if>
+      <if test="aholdplace != null">
+        aholdPlace,
+      </if>
+      <if test="apersonlimit != null">
+        apersonlimit,
+      </if>
+      <if test="aispass != null">
+        aispass,
+      </if>
+      <if test="aintroduction != null">
+        aintroduction,
+      </if>
+      <if test="aunit != null">
+        aunit,
+      </if>
+      <if test="uid != null">
+        uid,
+      </if>
+      <if test="adeadline != null">
+        adeadline,
+      </if>
+      <if test="aentereddate != null">
+        aenteredDate,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="aid != null">
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="aname != null">
+        #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="aholddate != null">
+        #{aholddate,jdbcType=DATE},
+      </if>
+      <if test="aholdplace != null">
+        #{aholdplace,jdbcType=VARCHAR},
+      </if>
+      <if test="apersonlimit != null">
+        #{apersonlimit,jdbcType=INTEGER},
+      </if>
+      <if test="aispass != null">
+        #{aispass,jdbcType=INTEGER},
+      </if>
+      <if test="aintroduction != null">
+        #{aintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="aunit != null">
+        #{aunit,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="adeadline != null">
+        #{adeadline,jdbcType=DATE},
+      </if>
+      <if test="aentereddate != null">
+        #{aentereddate,jdbcType=DATE},
+      </if>
+    </trim>
+  </insert>
+  <insert id="joinAct" parameterType="map">
+  	insert into activityparticipation(uid,aid) values(#{uid,jdbcType=INTEGER},#{aid,jdbcType=INTEGER})
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdnet.domain.Activity">
+    update activity
+    <set>
+      <if test="aname != null">
+        aname = #{aname,jdbcType=VARCHAR},
+      </if>
+      <if test="aholddate != null">
+        aholdDate = #{aholddate,jdbcType=DATE},
+      </if>
+      <if test="aholdplace != null">
+        aholdPlace = #{aholdplace,jdbcType=VARCHAR},
+      </if>
+      <if test="apersonlimit != null">
+        apersonlimit = #{apersonlimit,jdbcType=INTEGER},
+      </if>
+      <if test="aispass != null">
+        aispass = #{aispass,jdbcType=INTEGER},
+      </if>
+      <if test="aintroduction != null">
+        aintroduction = #{aintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="aunit != null">
+        aunit = #{aunit,jdbcType=VARCHAR},
+      </if>
+      <if test="uid != null">
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="adeadline != null">
+        adeadline = #{adeadline,jdbcType=DATE},
+      </if>
+      <if test="aentereddate != null">
+        aenteredDate = #{aentereddate,jdbcType=DATE},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdnet.domain.Activity">
+    update activity
+    set aname = #{aname,jdbcType=VARCHAR},
+      aholdDate = #{aholddate,jdbcType=DATE},
+      aholdPlace = #{aholdplace,jdbcType=VARCHAR},
+      apersonlimit = #{apersonlimit,jdbcType=INTEGER},
+      aispass = #{aispass,jdbcType=INTEGER},
+      aintroduction = #{aintroduction,jdbcType=VARCHAR},
+      aunit = #{aunit,jdbcType=VARCHAR},
+      uid = #{uid,jdbcType=INTEGER},
+      adeadline = #{adeadline,jdbcType=DATE},
+      aenteredDate = #{aentereddate,jdbcType=DATE}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  
+  
+  <select id="selectActivity" parameterType="map" resultType="map">
+  	select <include refid="Base_Column_List" />,uemail from activity,user
+  	where activity.uid = user.uid
+  	<if test="aid != null and aid != ''">
+        and aid = #{aid,jdbcType=INTEGER}
+      </if>
+  	<if test="aname != null and aname != ''">
+        and aname = #{aname,jdbcType=VARCHAR}
+      </if>
+      <if test="aholddate != null and aholddate != ''">
+        and aholdDate = #{aholddate,jdbcType=DATE}
+      </if>
+      <if test="aholdplace != null and aholdplace != ''">
+        and aholdPlace = #{aholdplace,jdbcType=VARCHAR}
+      </if>
+      <if test="apersonlimit != null and apersonlimit != ''">
+        and apersonlimit = #{apersonlimit,jdbcType=INTEGER}
+      </if>
+      <if test="aispass != null and aispass != ''">
+        and aispass = #{aispass}
+      </if>
+      <if test="aunit != null and aunit != ''">
+        and aunit = #{aunit,jdbcType=VARCHAR}
+      </if>
+      <if test="uid != null and uid != ''">
+        and user.uid = #{uid,jdbcType=INTEGER}
+      </if>
+      <if test="adeadline != null and adeadline != ''">
+        and adeadline = #{adeadline,jdbcType=DATE},
+      </if>
+      <if test="aentereddate != null and aentereddate != ''">
+        and aenteredDate = #{aentereddate,jdbcType=DATE}
+      </if>
+      order by aholdDate
+  </select>
+  <select id="selectAllActivities" parameterType="map" resultType="map">
+  	select <include refid="Base_Column_List" />,uemail
+  	from activity,user where activity.uid = user.uid 
+  	<if test="aispass != null and aispass != ''">
+  		and aispass = #{aispass,jdbcType=INTEGER}
+  	</if>
+  	order by aholdDate limit #{begin},#{limit} 
+  	
+  </select>
+  <select id="selectCount" resultType="int">
+  	select count(*) from activity where aispass = 1;
+  	
+  </select>
+  <select id="selectCountOfJoin" resultType="int" parameterType="int">
+  	select count(*) from activityparticipation where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <select id="checkStatus" resultType="map" parameterType="map">
+  	select * from activityparticipation where aid = #{aid,jdbcType=INTEGER} and uid = #{uid,jdbcType=INTEGER}
+  </select>
+  <select id="selectJoinActivity" parameterType="int" resultType="map">
+  	select * from activity,activityparticipation where activityparticipation.uid=#{uid,jdbcType=INTEGER} and activity.aid = activityparticipation.aid
+  </select>
+  
+  
+  
+</mapper>

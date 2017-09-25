@@ -1,0 +1,100 @@
+<html lang="en">
+  <head>
+    <title>insertMusic</title>
+	<meta charset="UTF-8" />
+	<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="/zdnet/page/css/insert.css"/>
+	<script src="/zdnet/page/js/checkInsert.js"></script>
+		<script type="text/javascript">  
+		var result=document.getElementById("result");  
+		var file=document.getElementById("mpic");  
+  
+		//判断浏览器是否支持FileReader接口  
+		if(typeof FileReader == 'undefined'){  
+		    result.InnerHTML="<p>你的浏览器不支持FileReader接口！</p>";  
+		    //使选择控件不可操作  
+		    file.setAttribute("disabled","disabled");  
+		}  
+  
+		function readAsDataURL(){  
+		    //检验是否为图像文件  
+		    var file = document.getElementById("mpic").files[0];  
+		    if(!/image\/\w+/.test(file.type)){  
+		//      alert("不是图片格式");  
+		        return false;  
+ 		   }  
+ 		    var reader = new FileReader();  
+ 		   //将文件以Data URL形式读入页面  
+ 		    reader.readAsDataURL(file);  
+		    reader.onload=function(e){  
+		        var result=document.getElementById("result");  
+		        //显示文件  
+		        result.innerHTML='<img src="' + this.result +'" alt="" />';  
+		    }  
+		}
+	</script>
+	<style type="text/css">
+		.form-group input{
+			width: 400px;
+			display: inline-block;
+			margin-left: 15%;
+		}
+	</style>
+  </head>
+  
+<body>
+<div class="panel panel-primary" style="margin-top:20px;margin-right:10px;">
+<div class="panel-heading">添加音乐</div>
+<div class="panel-body">
+   <form action="/zdnet/insertMusic.action" method="post" enctype="multipart/form-data" onsubmit="return checkMusicForm()">
+		<div class="form-group">
+    		<span class="geshi">&nbsp;</span><label>音乐名字：</label><br />
+    		<input type="text" class="form-control" name="mname" id="mname" onblur="checkMusicName()"
+    		><span id="mnameEmp"></span>
+  		</div>
+  		<div class="form-group">
+    			<span class="geshi">&nbsp;</span><label>上传音乐封面：</label><br />
+  				<input type="file" name="mpic" id="mpic" onchange="readAsDataURL(),checkMusicPic()" onblur="" 
+  				style="margin-left: 15%;display: inline-block;" >
+  				<span id="mpicErr"></span>
+
+				<div class="col" style="margin-left: 15%;margin-top: 20px;">
+					<a href="#" class="thumbnail" >
+						<div id="result" name="result" ><img src=""/></div>
+					</a>
+				</div>
+  		</div>
+  		<div class="form-group">
+    		<span class="geshi">&nbsp;</span><label>上传音乐文件：</label><br />
+  			<input type="file" name="mfile" id="mfile" value="" onchange="checkMusicFile()"
+  			style="margin-left: 15%;margin-top: 20px;display: inline-block;"/>
+  			<span id="mfileErr"></span>
+  		</div>
+  		<div class="form-group">
+  			<span class="geshi">&nbsp;</span><label>作者：</label><br />
+  			<input type="text" class="form-control" name="mauthor" id="mauthor" 
+    		onblur="checkMusicAuthor()">
+    		<span id="mauthorEmp"></span>
+  		</div>
+  		<div class="form-group">
+  			<span class="geshi">&nbsp;</span><label>演唱者：</label><br />
+  			<input type="text" class="form-control" name="msinger" id="msinger" 
+    		onblur="checkMusicSinger()">
+    		<span id="msingerEmp"></span>
+  		</div>
+  		<div class="form-group">
+  			<span class="geshi">&nbsp;</span><label>发行日期：</label><br />
+  			<input type="text" class="form-control" name="rundate" id="mrundate" 
+    		onblur="checkMusicRunDate()">
+    		<span id="mrundateEmp"></span>
+  		</div>
+  		
+		<input type="submit" class="btn btn-primary" style="margin-left: 50%;margin-top:10px;" value="提交"/>
+	</form>
+	</div>
+	</div>
+	</div>
+</body>
+</html>

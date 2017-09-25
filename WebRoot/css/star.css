@@ -1,0 +1,15 @@
+		.bg{
+			width: 60px;
+			height: 16px;
+			background: url("../img/star_gray.png");
+			margin-left: 40px;
+			margin-top: 3px;
+		}
+		.over{
+			height:16px;
+			background:url("../img/star_org.png") no-repeat;
+		}
+		.score{
+			display: none;
+		}
+		

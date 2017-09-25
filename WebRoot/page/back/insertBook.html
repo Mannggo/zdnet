@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>insertBook</title>
+	<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	
+	<script type="text/javascript">  
+		var result=document.getElementById("result");  
+		var file=document.getElementById("bpic");  
+  
+		//判断浏览器是否支持FileReader接口  
+		if(typeof FileReader == 'undefined'){  
+		    result.InnerHTML="<p>你的浏览器不支持FileReader接口！</p>";  
+		    //使选择控件不可操作  
+		    file.setAttribute("disabled","disabled");  
+		}  
+  
+		function readAsDataURL(){  
+		    //检验是否为图像文件  
+		    var file = document.getElementById("bpic").files[0];  
+		    if(!/image\/\w+/.test(file.type)){  
+		//      alert("不是图片格式");  
+		        return false;  
+ 		   }  
+ 		    var reader = new FileReader();  
+ 		   //将文件以Data URL形式读入页面  
+ 		    reader.readAsDataURL(file);  
+		    reader.onload=function(e){  
+		        var result=document.getElementById("result");  
+		        //显示文件  
+		        result.innerHTML='<img src="' + this.result +'" alt="" />';  
+		    }  
+		}
+</script>
+
+<style type="text/css">
+	.form-group input{
+		width: 400px;
+		display: inline-block;
+		margin-left: 15%;
+	}
+</style>
+<script src="/zdnet/page/js/checkInsert.js"></script>
+<link rel="stylesheet" type="text/css" href="/zdnet/page/css/insert.css"/>
+</head>
+<body>
+<body>
+<div class="panel panel-primary" style="margin-top:20px;margin-right:10px;">
+<div class="panel-heading">添加书籍</div>
+<div class="panel-body">
+	<form action="/zdnet/insertBook.action" method="post" enctype="multipart/form-data"  onsubmit="return checkBookForm()">
+		<div class="form-group">
+    		<span class="geshi">&nbsp;</span><label>书名：</label><br />
+    		<input type="text" class="form-control" name="bname" id="bname" onblur="checkBookName()"
+    		><span id="bnameEmp"></span>
+  		</div>
+  		<div class="form-group">
+    			<span class="geshi">&nbsp;</span><label>上传书封面：</label><br />
+  				<input type="file" name="bpic" id="bpic" onchange="readAsDataURL(),checkBookPic()" onblur="" 
+  				style="margin-left: 15%;display: inline-block;" >
+  				<span id="bpicErr"></span>
+
+				<div class="col" style="margin-left: 15%;margin-top: 20px;">
+					<a href="#" class="thumbnail" >
+						<div id="result" name="result" ><img src=""/></div>
+					</a>
+				</div>
+  		</div>
+  		<div class="form-group">
+  			<span class="geshi">&nbsp;</span><label>作者：</label><br />
+  			<input type="text" class="form-control" name="bauthor" id="bauthor" 
+    		onblur="checkBookAuthor()">
+    		<span id="bauthorEmp"></span>
+  		</div>
+  		<div class="form-group">
+  			<span class="geshi">&nbsp;</span><label>出版社：</label><br />
+  			<input type="text" class="form-control" name="bpublisher" id="bpublisher" 
+    		onblur="checkBookPublisher()">
+    		<span id="bpublisherEmp"></span>
+  		</div>
+  		<div class="form-group">
+  			<span class="geshi">&nbsp;</span><label>出版日期：</label><br />
+  			<input type="text" class="form-control" name="publishdate" id="bpublishdate" 
+    		onblur="checkBookPublishDate()">
+    		<span id="bpublishdateEmp"></span>
+  		</div>
+  		<div class="introduction">
+  			<span class="geshi">&nbsp;</span><label for="">简介：</label><br />
+  			<textarea name="bintroduction" id="bintroduction"  rows="4" cols="" class="form-control" 
+  			onblur="checkBookIntroduction()" style="width:40%;margin-left: 15%;display: inline-block;"></textarea>
+  			<span id="bintroductionEmp"></span>
+  		</div>
+		<input type="submit" class="btn btn-primary" style="margin-left: 50%;margin-top:10px;" value="提交"/>
+	</form>
+	</div>
+	</div>
+	</div>
+</body>
+</html>

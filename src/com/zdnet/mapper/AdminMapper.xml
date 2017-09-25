@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdnet.mapper.AdminMapper" >
+  <resultMap id="BaseResultMap" type="com.zdnet.domain.Admin" >
+    <id column="aid" property="aid" jdbcType="INTEGER" />
+    <result column="account" property="account" jdbcType="VARCHAR" />
+    <result column="apassword" property="apassword" jdbcType="VARCHAR" />
+    <result column="aisroot" property="aisroot" jdbcType="INTEGER" />
+    <result column="arealname" property="arealname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    aid, account, apassword, aisroot, arealname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from admin
+    where aid = #{aid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from admin
+    where aid = #{aid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdnet.domain.Admin" >
+    insert into admin (aid, account, apassword, 
+      aisroot, arealname)
+    values (#{aid,jdbcType=INTEGER}, #{account,jdbcType=VARCHAR}, #{apassword,jdbcType=VARCHAR}, 
+      #{aisroot,jdbcType=INTEGER}, #{arealname,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdnet.domain.Admin" >
+    insert into admin
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        aid,
+      </if>
+      <if test="account != null" >
+        account,
+      </if>
+      <if test="apassword != null" >
+        apassword,
+      </if>
+      <if test="aisroot != null" >
+        aisroot,
+      </if>
+      <if test="arealname != null" >
+        arealname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="aid != null" >
+        #{aid,jdbcType=INTEGER},
+      </if>
+      <if test="account != null" >
+        #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="apassword != null" >
+        #{apassword,jdbcType=VARCHAR},
+      </if>
+      <if test="aisroot != null" >
+        #{aisroot,jdbcType=INTEGER},
+      </if>
+      <if test="arealname != null" >
+        #{arealname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdnet.domain.Admin" >
+    update admin
+    <set >
+      <if test="account != null" >
+        account = #{account,jdbcType=VARCHAR},
+      </if>
+      <if test="apassword != null" >
+        apassword = #{apassword,jdbcType=VARCHAR},
+      </if>
+      <if test="aisroot != null" >
+        aisroot = #{aisroot,jdbcType=INTEGER},
+      </if>
+      <if test="arealname != null" >
+        arealname = #{arealname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdnet.domain.Admin" >
+    update admin
+    set account = #{account,jdbcType=VARCHAR},
+      apassword = #{apassword,jdbcType=VARCHAR},
+      aisroot = #{aisroot,jdbcType=INTEGER},
+      arealname = #{arealname,jdbcType=VARCHAR}
+    where aid = #{aid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAdmin" resultMap="BaseResultMap" parameterType="map">
+	select * from admin
+		where 1=1
+		<if test="aid != null and aid != ''" >
+        and aid = #{aid,jdbcType=INTEGER}
+      </if>
+	  	<if test="account != null and account != ''" >
+        and account = binary #{account,jdbcType=VARCHAR}
+      </if>
+      <if test="aisroot != null and aisroot != ''" >
+        and aisroot = #{aisroot,jdbcType=VARCHAR}
+      </if>
+      
+		
+  </select>
+</mapper>

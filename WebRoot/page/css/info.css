@@ -1,0 +1,18 @@
+.bookimg,.filmimg,.musicimg{
+	width:200px;
+	height:300px;
+	margin:30px;
+	float:left;
+	border:1px dotted grey;
+}
+
+.infomation{
+	height:300px;
+	margin:30px;
+	float:left;
+	width:400px;
+	font-size:10pt;
+}
+
+
+

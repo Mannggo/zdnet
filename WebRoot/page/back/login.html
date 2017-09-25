@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>login</title>
+	<link rel="stylesheet" type="text/css" href="http://apps.bdimg.com/libs/bootstrap/3.3.4/css/bootstrap.min.css"/>
+	<script src="http://apps.bdimg.com/libs/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+	<script src="http://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+	<style type="text/css">
+		body{
+			margin: 0 auto;
+			background-color: #34352c;
+		}
+		#main{
+			width: 500px;
+			height: 350px;
+			background-color: #eff0dc;
+			margin-left: 30%;
+			margin-top: 100px;
+			border-radius: 10px;
+		}
+		#header{
+			height: 70px;
+			background-color: #c9cabb;
+			border-top-left-radius: 10px;
+			border-top-right-radius: 10px;
+			text-align: center;
+			padding-top: 10px;
+		}
+		#content{
+			height: 250px;
+		}
+		#footer{
+			height: 100px;
+		}
+		.top{
+			text-align: center;
+			font:normal small-caps normal 30px/1.5em "微软雅黑";
+		}
+		.form-group label{
+			font:normal small-caps bold 15px/1.5em "微软雅黑";
+			margin-left: 5%;
+			width: 20%;
+			text-align: center;
+			margin-top: 5px;
+		}
+		.form-group input{
+			width: 60%;
+			margin-left: 20%;
+		}
+		.checkbox span{
+			cursor: default;
+		}
+		.checkbox input{
+			cursor: pointer;
+		}
+		.content-min{
+			margin-top: 6%;
+		}
+		.btn-default{
+			background-color: lightgray;
+			width: 80px;
+		}
+		.btn-default:hover{
+			background-color: dimgray;
+			color: white;
+		}
+		.login{
+			margin-top: 70px;
+			margin-left: 60%;
+		}
+		.reset{
+			margin-top: 70px;
+			margin-left: 20px;
+		}
+		#adminErr{
+			width:80px;
+			height:30px;
+			background-color:#F7C6C7;
+			margin-left:25%;
+			font-size:14px;
+		}
+
+	</style>
+</head>
+<body>
+<form id="adminForm">
+	<div id="main">
+		<div id="header">
+			<span class="top">管理员登陆</span>
+		</div>
+		<div id="content">
+			<form action="" method="post" id="adminForm">
+				<div class="content-min">
+					<div class="form-group">
+						<label class="col-sm-2 control-label">用户名：</label>
+						<input type="text" class="form-control" name="account" id="admin" value="" />
+					</div>
+					<div class="form-group">
+						<label class="col-sm-2 control-label">密码：</label>
+						<input type="password" class="form-control" name="apassword" id="psw" value="" />
+					</div>
+					<span id="adminErr"></span>
+				</div>
+				<div class="bb">
+				<input type="button" id="submit" class="btn btn-default login" value="登录"/>
+				<input type="reset" class="btn btn-default reset" name="reset" id="reset" value="重置" />
+				</div>
+			</form>
+		</div>
+	</div>
+</form>
+<script>
+
+$("#submit").click(function(){
+	$.ajax({
+		cache:true,
+		type:"POST",
+		url:"/zdnet/adminLogin.action",
+		data:$("#adminForm").serialize(),
+		success:function(data){
+		if(data=="noexist"){
+			$("#adminErr").text("用户名不存在！");
+		}else if(data=="checkfalse"){
+			$("#adminErr").text("密码错误！");
+		}else if(data=="checktrue"){
+			location.replace("/zdnet/page/back/backstageIndex.jsp")
+		}
+		}
+	});
+})
+	
+</script>
+	
+</body>
+</html>

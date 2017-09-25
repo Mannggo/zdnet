@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdnet.mapper.BookCommentMapper" >
+  <resultMap id="BaseResultMap" type="com.zdnet.domain.BookComment" >
+    <id column="bcid" property="bcid" jdbcType="INTEGER" />
+    <result column="bccontent" property="bccontent" jdbcType="VARCHAR" />
+    <result column="bcenteredDate" property="bcentereddate" jdbcType="DATE" />
+    <result column="bcstar" property="bcstar" jdbcType="INTEGER" />
+    <result column="uid" property="uid" jdbcType="INTEGER" />
+    <result column="bid" property="bid" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    bcid, bccontent, bcenteredDate, bcstar, uid, bid
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from bookcomment
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from bookcomment
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdnet.domain.BookComment" >
+    insert into bookcomment (bcid, bccontent, bcenteredDate, 
+      bcstar, uid, bid)
+    values (#{bcid,jdbcType=INTEGER}, #{bccontent,jdbcType=VARCHAR}, #{bcentereddate,jdbcType=DATE}, 
+      #{bcstar,jdbcType=INTEGER}, #{uid,jdbcType=INTEGER}, #{bid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdnet.domain.BookComment" >
+    insert into bookcomment
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bcid != null" >
+        bcid,
+      </if>
+      <if test="bccontent != null" >
+        bccontent,
+      </if>
+      <if test="bcentereddate != null" >
+        bcenteredDate,
+      </if>
+      <if test="bcstar != null" >
+        bcstar,
+      </if>
+      <if test="uid != null" >
+        uid,
+      </if>
+      <if test="bid != null" >
+        bid,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bcid != null" >
+        #{bcid,jdbcType=INTEGER},
+      </if>
+      <if test="bccontent != null" >
+        #{bccontent,jdbcType=VARCHAR},
+      </if>
+      <if test="bcentereddate != null" >
+        #{bcentereddate,jdbcType=DATE},
+      </if>
+      <if test="bcstar != null" >
+        #{bcstar,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdnet.domain.BookComment" >
+    update bookcomment
+    <set >
+      <if test="bccontent != null" >
+        bccontent = #{bccontent,jdbcType=VARCHAR},
+      </if>
+      <if test="bcentereddate != null" >
+        bcenteredDate = #{bcentereddate,jdbcType=DATE},
+      </if>
+      <if test="bcstar != null" >
+        bcstar = #{bcstar,jdbcType=INTEGER},
+      </if>
+      <if test="uid != null" >
+        uid = #{uid,jdbcType=INTEGER},
+      </if>
+      <if test="bid != null" >
+        bid = #{bid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdnet.domain.BookComment" >
+    update bookcomment
+    set bccontent = #{bccontent,jdbcType=VARCHAR},
+      bcenteredDate = #{bcentereddate,jdbcType=DATE},
+      bcstar = #{bcstar,jdbcType=INTEGER},
+      uid = #{uid,jdbcType=INTEGER},
+      bid = #{bid,jdbcType=INTEGER}
+    where bcid = #{bcid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllCommentByBid" parameterType="int" resultType="map">
+  	select *,unickname,upicaddr from bookcomment,user
+  	where bid = #{bid,jdbcType=INTEGER} and user.uid = bookcomment.uid order by bcentereddate desc
+  </select>
+</mapper>

@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdnet.mapper.BookMapper" >
+  <resultMap id="BaseResultMap" type="com.zdnet.domain.Book" >
+    <id column="bid" property="bid" jdbcType="INTEGER" />
+    <result column="bname" property="bname" jdbcType="VARCHAR" />
+    <result column="bauthor" property="bauthor" jdbcType="VARCHAR" />
+    <result column="bintroduction" property="bintroduction" jdbcType="VARCHAR" />
+    <result column="benteredDate" property="bentereddate" jdbcType="DATE" />
+    <result column="bpublishDate" property="bpublishdate" jdbcType="DATE" />
+    <result column="bpublisher" property="bpublisher" jdbcType="VARCHAR" />
+    <result column="bpicaddr" property="bpicaddr" jdbcType="VARCHAR" />
+    <result column="biscream" property="biscream" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    book.bid, bname, bauthor, bintroduction, benteredDate, bpublishDate, bpublisher, bpicaddr, 
+    biscream
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from book
+    where bid = #{bid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from book
+    where bid = #{bid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdnet.domain.Book" >
+    insert into book (bid, bname, bauthor, 
+      bintroduction, benteredDate, bpublishDate, 
+      bpublisher, bpicaddr, biscream
+      )
+    values (#{bid,jdbcType=INTEGER}, #{bname,jdbcType=VARCHAR}, #{bauthor,jdbcType=VARCHAR}, 
+      #{bintroduction,jdbcType=VARCHAR}, #{bentereddate,jdbcType=DATE}, #{bpublishdate,jdbcType=DATE}, 
+      #{bpublisher,jdbcType=VARCHAR}, #{bpicaddr,jdbcType=VARCHAR}, #{biscream,jdbcType=INTEGER}
+      )
+  </insert>
+  <insert id="insertFirstComment" parameterType="com.zdnet.domain.Book" >
+  	insert into bookcomment (bccontent, bcenteredDate, 
+      bcstar, uid, bid)
+    values ('还没有评论', #{bentereddate,jdbcType=DATE}, 
+      0, 1, (select max(bid) from book))
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdnet.domain.Book" >
+  
+    insert into book
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        bid,
+      </if>
+      <if test="bname != null" >
+        bname,
+      </if>
+      <if test="bauthor != null" >
+        bauthor,
+      </if>
+      <if test="bintroduction != null" >
+        bintroduction,
+      </if>
+      <if test="bentereddate != null" >
+        benteredDate,
+      </if>
+      <if test="bpublishdate != null" >
+        bpublishDate,
+      </if>
+      <if test="bpublisher != null" >
+        bpublisher,
+      </if>
+      <if test="bpicaddr != null" >
+        bpicaddr,
+      </if>
+      <if test="biscream != null" >
+        biscream,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="bid != null" >
+        #{bid,jdbcType=INTEGER},
+      </if>
+      <if test="bname != null" >
+        #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="bauthor != null" >
+        #{bauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bintroduction != null" >
+        #{bintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="bentereddate != null" >
+        #{bentereddate,jdbcType=DATE},
+      </if>
+      <if test="bpublishdate != null" >
+        #{bpublishdate,jdbcType=DATE},
+      </if>
+      <if test="bpublisher != null" >
+        #{bpublisher,jdbcType=VARCHAR},
+      </if>
+      <if test="bpicaddr != null" >
+        #{bpicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="biscream != null" >
+        #{biscream,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdnet.domain.Book" >
+    update book
+    <set >
+      <if test="bname != null" >
+        bname = #{bname,jdbcType=VARCHAR},
+      </if>
+      <if test="bauthor != null" >
+        bauthor = #{bauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="bintroduction != null" >
+        bintroduction = #{bintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="bentereddate != null" >
+        benteredDate = #{bentereddate,jdbcType=DATE},
+      </if>
+      <if test="bpublishdate != null" >
+        bpublishDate = #{bpublishdate,jdbcType=DATE},
+      </if>
+      <if test="bpublisher != null" >
+        bpublisher = #{bpublisher,jdbcType=VARCHAR},
+      </if>
+      <if test="bpicaddr != null" >
+        bpicaddr = #{bpicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="biscream != null" >
+        biscream = #{biscream,jdbcType=INTEGER},
+      </if>
+    </set>
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  
+  <update id="updateByPrimaryKey" parameterType="com.zdnet.domain.Book" >
+    update book
+    set bname = #{bname,jdbcType=VARCHAR},
+      bauthor = #{bauthor,jdbcType=VARCHAR},
+      bintroduction = #{bintroduction,jdbcType=VARCHAR},
+      benteredDate = #{bentereddate,jdbcType=DATE},
+      bpublishDate = #{bpublishdate,jdbcType=DATE},
+      bpublisher = #{bpublisher,jdbcType=VARCHAR},
+      bpicaddr = #{bpicaddr,jdbcType=VARCHAR},
+      biscream = #{biscream,jdbcType=INTEGER}
+    where bid = #{bid,jdbcType=INTEGER}
+  </update>
+  <select id="selectAllBooks" resultMap="BaseResultMap" parameterType="map">
+  	select
+  	<include refid="Base_Column_List"/>
+  	from book 
+  	where 1=1
+  	<if test="iscream != null and iscream != ''" >
+        and biscream = #{iscream,jdbcType=INTEGER}
+     </if>
+  	limit #{begin,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
+  </select>
+  <select id="selectAllBooksAndStar" resultType="map" parameterType="map">
+  	select book.bid,bname,bauthor,bintroduction,bpublishDate,bpublisher,bpicaddr,avg(bcstar) as avgstar,count(*) totalcomment from book,bookcomment
+  		where book.bid = bookcomment.bid group by book.bid 
+  			ORDER BY benteredDate DESC 
+  				limit #{begin,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
+  </select>
+  <select id="selectBook" parameterType="Map" resultType="map">
+		select  <include refid="Base_Column_List" />,AVG(bcstar) as avgstar,count(*) as count from book,bookcomment
+		where book.bid = bookcomment.bid
+	  <if test="bid != null and bid != ''" >
+        and book.bid = #{bid,jdbcType=INTEGER}
+      </if>
+      
+  	  <if test="bname != null and bname != ''" >
+        and bname = #{bname,jdbcType=VARCHAR}
+      </if>
+      <if test="bauthor != null and bauthor != ''" >
+        and bauthor = #{bauthor,jdbcType=VARCHAR}
+      </if>
+      <if test="bpublisher != null and bpublisher != ''" >
+        and bpublisher like #{bpublisher,jdbcType=VARCHAR}
+      </if>
+      <if test="biscream != null and biscream != ''" >
+        and biscream = #{biscream,jdbcType=INTEGER}
+      </if>
+      
+      <if test="condition != null and condition != ''" >
+        and (bname like #{condition,jdbcType=VARCHAR} or bauthor like #{condition} or bpublisher like #{condition})
+      </if>
+      GROUP BY bookcomment.bid 
+	</select>
+	
+	<select id="selectCount" resultType="int">
+		select count(*) from book;
+	</select>
+	<select id="selectBookCollection" resultType="map" parameterType="map">
+		select * from bookcollection where uid=#{uid} and bid=#{bid};
+	</select>
+</mapper>

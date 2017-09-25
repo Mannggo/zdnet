@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zdnet.mapper.FilmMapper" >
+  <resultMap id="BaseResultMap" type="com.zdnet.domain.Film" >
+    <id column="fid" property="fid" jdbcType="INTEGER" />
+    <result column="fname" property="fname" jdbcType="VARCHAR" />
+    <result column="factor" property="factor" jdbcType="VARCHAR" />
+    <result column="fintroduction" property="fintroduction" jdbcType="VARCHAR" />
+    <result column="fenteredDate" property="fentereddate" jdbcType="DATE" />
+    <result column="frunDate" property="frundate" jdbcType="DATE" />
+    <result column="fauthor" property="fauthor" jdbcType="VARCHAR" />
+    <result column="fpicaddr" property="fpicaddr" jdbcType="VARCHAR" />
+    <result column="fiscream" property="fiscream" jdbcType="INTEGER" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    film.fid, fname, factor, fintroduction, fenteredDate, frunDate, fauthor, fpicaddr, fiscream
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from film
+    where fid = #{fid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from film
+    where fid = #{fid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.zdnet.domain.Film" >
+    insert into film (fid, fname, factor, 
+      fintroduction, fenteredDate, frunDate, 
+      fauthor, fpicaddr, fiscream
+      )
+    values (#{fid,jdbcType=INTEGER}, #{fname,jdbcType=VARCHAR}, #{factor,jdbcType=VARCHAR}, 
+      #{fintroduction,jdbcType=VARCHAR}, #{fentereddate,jdbcType=DATE}, #{frundate,jdbcType=DATE}, 
+      #{fauthor,jdbcType=VARCHAR}, #{fpicaddr,jdbcType=VARCHAR}, #{fiscream,jdbcType=INTEGER}
+      )
+  </insert>
+  
+  <insert id="insertFirstComment" parameterType="com.zdnet.domain.Film" >
+    insert into filmcomment (fccontent, fcstar, 
+      fcenteredDate, uid, fid
+      )
+    values ('还没有评论', 0, 
+      #{fentereddate,jdbcType=TIMESTAMP}, 1, (select max(fid) from film)
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zdnet.domain.Film" >
+    insert into film
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        fid,
+      </if>
+      <if test="fname != null" >
+        fname,
+      </if>
+      <if test="factor != null" >
+        factor,
+      </if>
+      <if test="fintroduction != null" >
+        fintroduction,
+      </if>
+      <if test="fentereddate != null" >
+        fenteredDate,
+      </if>
+      <if test="frundate != null" >
+        frunDate,
+      </if>
+      <if test="fauthor != null" >
+        fauthor,
+      </if>
+      <if test="fpicaddr != null" >
+        fpicaddr,
+      </if>
+      <if test="fiscream != null" >
+        fiscream,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="fid != null" >
+        #{fid,jdbcType=INTEGER},
+      </if>
+      <if test="fname != null" >
+        #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="factor != null" >
+        #{factor,jdbcType=VARCHAR},
+      </if>
+      <if test="fintroduction != null" >
+        #{fintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="fentereddate != null" >
+        #{fentereddate,jdbcType=DATE},
+      </if>
+      <if test="frundate != null" >
+        #{frundate,jdbcType=DATE},
+      </if>
+      <if test="fauthor != null" >
+        #{fauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="fpicaddr != null" >
+        #{fpicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="fiscream != null" >
+        #{fiscream,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zdnet.domain.Film" >
+    update film
+    <set >
+      <if test="fname != null" >
+        fname = #{fname,jdbcType=VARCHAR},
+      </if>
+      <if test="factor != null" >
+        factor = #{factor,jdbcType=VARCHAR},
+      </if>
+      <if test="fintroduction != null" >
+        fintroduction = #{fintroduction,jdbcType=VARCHAR},
+      </if>
+      <if test="fentereddate != null" >
+        fenteredDate = #{fentereddate,jdbcType=DATE},
+      </if>
+      <if test="frundate != null" >
+        frunDate = #{frundate,jdbcType=DATE},
+      </if>
+      <if test="fauthor != null" >
+        fauthor = #{fauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="fpicaddr != null" >
+        fpicaddr = #{fpicaddr,jdbcType=VARCHAR},
+      </if>
+      <if test="fiscream != null" >
+        fiscream = #{fiscream,jdbcType=INTEGER},
+      </if>
+    </set>
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zdnet.domain.Film" >
+    update film
+    set fname = #{fname,jdbcType=VARCHAR},
+      factor = #{factor,jdbcType=VARCHAR},
+      fintroduction = #{fintroduction,jdbcType=VARCHAR},
+      fenteredDate = #{fentereddate,jdbcType=DATE},
+      frunDate = #{frundate,jdbcType=DATE},
+      fauthor = #{fauthor,jdbcType=VARCHAR},
+      fpicaddr = #{fpicaddr,jdbcType=VARCHAR},
+      fiscream = #{fiscream,jdbcType=INTEGER}
+    where fid = #{fid,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectAllFilms" resultMap="BaseResultMap" parameterType="map">
+  	select  * from film 
+  	where 1=1
+  	<if test="iscream != null and iscream != ''" >
+        and fiscream = #{iscream,jdbcType=INTEGER}
+     </if>
+  	limit #{begin,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
+  </select>
+  <select id="selectAllFilmsAndStar" resultType="map" parameterType="map">
+  	select film.fid,fname,fauthor,fintroduction,frunDate,factor,fpicaddr,avg(fcstar) as avgstar,count(*) totalcomment from film,filmcomment
+  		where film.fid = filmcomment.fid group by filmcomment.fid 
+  			ORDER BY fenteredDate DESC 
+  				limit #{begin,jdbcType=INTEGER},#{limit,jdbcType=INTEGER};
+  </select>
+  <select id="selectCount" resultType="int">
+  	select count(*) from film
+  </select>
+  
+  <select id="selectFilm" resultType="map" parameterType="map">
+  	select <include refid="Base_Column_List" />,AVG(fcstar) as avgstar,count(*) as count from film,filmcomment
+  	where film.fid = filmcomment.fid
+  	<if test="fid != null and fid != ''">
+  		and film.fid = #{fid,jdbcType=INTEGER}
+  	</if>
+  	<if test="fname != null and fname != ''">
+  		and fname = #{fname,jdbcType=VARCHAR}
+  	</if>
+  	<if test="fauthor != null and fauthor != ''">
+  		and fauthor = #{fauthor,jdbcType=VARCHAR}
+  	</if>
+  	<if test="factor != null and factor != ''">
+  		and factor like #{factor,jdbcType=VARCHAR}
+  	</if>
+  	<if test="fiscream != null and fiscream != ''" >
+        and fiscream = #{fiscream,jdbcType=INTEGER}
+      </if>
+      <if test="condition != null and condition != ''" >
+        and (fname like #{condition} or fauthor like #{condition} or factor like #{condition})
+      </if>
+      GROUP BY filmcomment.fid 
+  </select>
+  
+  <select id="selectFilmCollection" resultType="map" parameterType="map">
+		select * from filmcollection where uid=#{uid} and fid=#{fid};
+	</select>
+</mapper>
